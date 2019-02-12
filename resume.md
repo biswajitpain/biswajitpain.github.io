@@ -31,7 +31,10 @@
  5. **Company: Tata Consultancy Services (TCS) - <http://www.tcs.com> (1 year 7 months)**  
     Tata Consultancy Services Limited (TCSL) is a multinational information technology (IT) service, consulting and business solutions company headquartered in India.
 
-    **Assistant Systems Engineer - Trainee (August 2013 – March 2014):**  
+    **Assistant Systems Engineer (July 2013– March 2014):**  
+    Works on multiple Infrastructure Automation Projects which includes Storage Virtualization Capacity Planning ,Datacenter Repoprt generator
+
+    **Assistant Systems Engineer - Trainee (August 2013 – July 2013):**  
     Started my career with Initial Learning Program (ILP) Training at TCS. Lead a group of 5 members team.
 
 ## Technical Skills:
