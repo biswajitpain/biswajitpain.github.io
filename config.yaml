@@ -3,19 +3,19 @@
 # Stuff about you.
 user_config:
   # Your Name. This will be used for the page title
-  name: 'Rohit Gupta'
+  name: 'Biswajit Pain'
 
   # The file you want to parse to be your resume
   # Must be a format supported by github-markup
   file: 'resume.md'
 
   # A picture of you. Should be a complete url
-  pic: 'http://rohit.io/res/about/rohit.jpg'
+  pic: ''
 
   # The google analytics key you wish to use.
-  gkey: 'UA-45412002-1'
+  gkey: ''
 
 # For github pages to work, this needs to be the GitHub repository this file is
 # stored in.
 github:
-  remote: 'git@github.com:rohit01/Resume.git'
+  remote: 'git@github.com:biswajitpain/biswajitpain.github.io.git'
