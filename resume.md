@@ -12,8 +12,9 @@
 
     **Site Reliability Engineer II (April 2018 - January 2019):**
 
- 2. **Company: Vmware Software India Pvt. Ltd (VMware) - <https://www.vmware.com> (November 2016 - March 2018)** 
-    **Member Of Technical Satff II (November 2016 - March 2018):**  
+ 2. **Company: Vmware Software India Pvt. Ltd (VMware) - <https://www.vmware.com> (November 2016 - March 2018)**
+
+    **Member Of Technical Satff II (November 2016 - March 2018):** 
 
  3. **Company: ANI Technologies (aka OlaCabs) - <https://www.olacabs.com> (January 2016 - October 2016)**  
     Ola is the most popular cab booking service in India. It has a presence in over 100 cities and caters to million+ bookings per day.
