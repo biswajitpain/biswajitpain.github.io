@@ -6,16 +6,7 @@
  
 
 ## Experience Summary:
- 1. **Company: Sixt Research And Developement Pvt. Ltd (Sixt) - <https://www.sixt.com> (April 2018 - Present)**        
-    Sixt rent a car was founded in 1912 in Munich, Germany, and started out with a fleet of just three vehicles. 
-    As one of the first and most important international car rental companies in the world -  with over 100 years in the business.
-
-    **Site Reliability Engineer III (January 2019 - Present):**  
-    Working a project named `hydrant` which minimize toil in the infrastructure operation.
-
-    **Site Reliability Engineer II (April 2018 - January 2019):**   
-    Worked to continue a payment platform project for Sixt. It's a flagship project driven by Site Relability Engineering Team . Built a highly available and secure payment platform in AWS and qualified for all kinds of `PCI DSS` certification.
-
+ 
 
  2. **Company: Vmware Software India Pvt. Ltd (VMware) - <https://www.vmware.com> (November 2016 - March 2018)**   
     VMware, Inc. is a subsidiary of Dell Technologies that provides cloud computing and platform virtualization software and services. It was one of the first commercially successful companies to virtualize the x86 architecture.
