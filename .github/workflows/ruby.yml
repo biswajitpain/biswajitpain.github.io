@@ -18,10 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
+      uses: actions/setup-ruby@v2
       with:
         ruby-version: 2.6
     - name: Check files
-      run: ls -ltr
-    - name: Run tests
-      run: bundle install && rake local && rake github
+      run:  pwd && ls -ltr
+    - name: Run Install
+      run: bundle install
+    - name: Run rake local
+      run: rake local && rake github
+    - name: Run rake github
+      run: rake github
