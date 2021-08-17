@@ -15,8 +15,10 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
     steps:
+    - name: Fix ruby Version
+      with:
+        ruby-version: 2.6
     - name: Run tests
-      run: mkdir ~/.ruby && echo 'export GEM_HOME=~/.ruby/' >> ~/.bashrc && echo 'export PATH="$PATH:~/.ruby/bin"' >> ~/.bashrc && source ~/.bashrc && gem install bundler && bundle install && rake local && rake github
+      run: bundle install && rake local && rake github
