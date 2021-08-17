@@ -14,7 +14,7 @@ on:
     branches: [ base ]
 
 jobs:
-  test:
+  ghpage:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -26,5 +26,4 @@ jobs:
       run:  pwd && ls -ltr
     - name: Run Install
       run: bundle install
-    - name: Run rake github
-      run: rake github
+
