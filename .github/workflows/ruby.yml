@@ -21,5 +21,7 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.6
+    - name: Check files
+      run: ls -ltr
     - name: Run tests
       run: bundle install && rake local && rake github
