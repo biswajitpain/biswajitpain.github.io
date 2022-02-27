@@ -23,7 +23,7 @@ jobs:
         persist-credentials: false
     - name: Reconfigure git to use HTTP authentication
       run: >
-           git config --global url."https://biswajitpain:${{ secrets.GH_TOKEN }}@github.com/".insteadOf ssh://git@github.com/ && git config --global user.email "email@biswajit.top" && git config --global user.name "Biswajit Pain"
+           git config --global url."https://biswajitpain:${{ secrets.GH_TOKEN }}@github.com/".insteadOf ssh://git@github.com/ && git config --global user.email "email@biswajit.top" && git config --global user.name "Biswajit Pain" git remote set-url origin "https://biswajitpain:${{ secrets.GH_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io.git"
       
     - name: Set up Ruby 2.6
       uses: ruby/setup-ruby@477b21f02be01bcb8030d50f37cfec92bfa615b6
