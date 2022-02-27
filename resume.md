@@ -1,6 +1,6 @@
 #  Biswajit Pain
 
-  * biswajitpain01 [AT]  gmail.com
+  * biswajit.pain [AT] gmail.com
   * Github: <https://github.com/biswajitpain>
   * LinkedIn: <https://www.linkedin.com/in/biswajitpain>
  
