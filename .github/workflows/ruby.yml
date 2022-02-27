@@ -26,4 +26,5 @@ jobs:
       run:  pwd && ls -ltr
     - name: Run Install
       run: bundle install
-
+    - name: Run GitHub
+      run: rake github
