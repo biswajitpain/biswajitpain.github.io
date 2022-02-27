@@ -17,7 +17,14 @@ jobs:
   ghpage:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v
+      with:
+        persist-credentials: false
+    - name: Reconfigure git to use HTTP authentication
+      run: >
+           git config --global url."https://${{ secrets.GH_TOKEN }}@github.com/".insteadOf ssh://git@github.com/
+      
     - name: Set up Ruby 2.6
       uses: ruby/setup-ruby@477b21f02be01bcb8030d50f37cfec92bfa615b6
       with:
