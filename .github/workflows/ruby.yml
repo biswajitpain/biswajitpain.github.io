@@ -25,7 +25,6 @@ jobs:
       run: >
            git config --global url."https://biswajitpain:${{ secrets.GITHUB_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io".insteadOf ssh://git@github.com/biswajitpain/biswajitpain.github.io.git \ 
            && git config --global user.email "email@biswajit.top" && git config --global user.name "Biswajit Pain" \
-           && git remote remove origin \
            && git remote set-url origin "https://${{ secrets.GITHUB_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io"
       
     - name: Set up Ruby 3.2
