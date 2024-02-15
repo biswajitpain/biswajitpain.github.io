@@ -27,8 +27,8 @@ jobs:
            && git config --global user.email "email@biswajit.top" && git config --global user.name "Biswajit Pain" \
            && git remote set-url origin "https://biswajitpain:${{ secrets.GH_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io"
       
-    - name: Set up Ruby 2.6
-      uses: ruby/setup-ruby@477b21f02be01bcb8030d50f37cfec92bfa615b6
+    - name: Set up Ruby 3.2
+      uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
       with:
         ruby-version: 2.6
     - name: Check files
