@@ -42,6 +42,7 @@ jobs:
       
     - name: Create report file
       run: |
+       cd /tmp/checkout
        git log --oneline
        git push origin gh-pages
     
