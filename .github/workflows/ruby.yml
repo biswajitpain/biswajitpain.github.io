@@ -42,5 +42,7 @@ jobs:
          git remote set-url origin "https://${{ secrets.GITHUB_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io"
     - name: Run GitHub
       env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      run: rake github
+          GITHUB_PAT: ${{ secrets.GH_TOKEN }}
+      run: >
+        echo $GITHUB_PAT
+        rake github
