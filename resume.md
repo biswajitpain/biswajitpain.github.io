@@ -10,21 +10,6 @@ A dedicated System Development Engineer with extensive experience in cloud compu
 
 ## Professional Experience
 
-### Amazon Web Services (AWS)
-- **Position:** System Development Engineer II
-- **Period:** October 2022 - Present
-- **Achievements:**
-  - Led the turtle migration project, focusing on transitioning IAM users to roles.
-  - Developed comprehensive CD pipelines and monitoring dashboards.
-  - Created tools to facilitate the migration process, including mcm auto-gen and Isengard role creator.
-
-### Delivery Hero (DH)
-- **Position:** Staff Site Reliability Engineer
-- **Period:** April 2020 - September 2022
-- **Achievements:**
-  - Designed and implemented PCI-compliant data centers and application orchestration platforms using VMware ESX hypervisors and Kubernetes.
-  - Set up a DR Data Center using KVM.
-
 ### Sixt Research and Development Pvt. Ltd (Sixt)
 - **Position:** Site Reliability Engineer III / II
 - **Period:** April 2018 - March 2020
