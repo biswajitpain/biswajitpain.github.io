@@ -12,14 +12,14 @@
 
     **System Development Engineer II(April 2020 - September 2022):**
 
-    I am mostly working on turtle migration (IAM user to role migration project). In this project I habe  implemented multiple full CD pipeline . Monitoring dashnoard and muliple tools in handlling migration process like mcm auto gen, isengard role creator etc.
+    I am mostly working on turtle migration (IAM user to role migration project). In this project I habe implemented multiple full CD pipeline, Monitoring dashboard and muliple tools in handelling migration process like mcm auto gen, isengard role creator etc.
 
  2. **Company: Delivery Hero(DH) - <https://www.deliveryhero.com> (April 2020 - September 2022)**        
     Delivery Hero is present in over 70 countries across four continents. We operate a wide range of local brands that are united behind our shared mission to always deliver an amazing experience - fast, easy, and to your door.
 
     **Staff Site Reliability Engineer (April 2020 - September 2022):**
 
-    I was responsible for design and implemention of PCI complent datacenter and application orchestration plaform . I have used bare metal server and Vmware ESX hypervisor in implemention of primary DC and kubernetes orchetration on top of it and DR DC implementation was KVM .
+    I was responsible for design and implemention of PCI complient datacenter and application orchestration platform . I have used bare metal server and Vmware ESX hypervisor in implemention of primary DC and kubernetes orchestration on top of it and DR DC implementation was on KVM .
 
 
  3. **Company: Sixt Research And Developement Pvt. Ltd (Sixt) - <https://www.sixt.com> (April 2018 - March 2020)**        
