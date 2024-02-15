@@ -8,6 +8,7 @@ gem 'sass'
 gem 'sinatra'
 gem 'thin'
 gem 'tilt'
+gem 'octokit'
 
 group :development do
   gem 'shotgun'
