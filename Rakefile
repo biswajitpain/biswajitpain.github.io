@@ -68,7 +68,7 @@ task :github do
 
   root = "/tmp/checkout-#{Time.now.to_i}"
   g = Git.clone(remote, root, :log => Logger.new(STDOUT))
-  # g.add_remote('origin', remote)
+  g.add_remote('origin', remote)
 
   # Make sure this actually switches branches.
   g.checkout(g.branch('gh-pages'))
