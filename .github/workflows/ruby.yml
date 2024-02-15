@@ -35,14 +35,11 @@ jobs:
       run:  pwd && ls -ltr
     - name: Run Install
       run: bundle install
-    - name: Set remote
-      env:
-          GITHUB_TOKEN: ${{ github.token }}
-      run: >
-         git remote set-url origin "https://${{ secrets.GITHUB_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io"
-    - name: Run GitHub
+    - name: Run GitHub task
       env:
           GITHUB_PAT: ${{ secrets.GH_TOKEN }}
-      run: >
-        echo $GITHUB_PAT \
-        && rake github
+      run: rake github
+      
+    - name: Create report file
+      run: git push
+    
