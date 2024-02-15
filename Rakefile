@@ -52,6 +52,7 @@ task :github do
   require File.expand_path('../resume',__FILE__)
 
   remote = YAML.load_file('config.yaml')['github']['remote']
+  remote = remote.gsub('$GITHUB_TOKEN',ENV['GITHUB_TOKEN'])
 
   browser = Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
 
