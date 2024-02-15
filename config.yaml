@@ -18,4 +18,4 @@ user_config:
 # For github pages to work, this needs to be the GitHub repository this file is
 # stored in.
 github:
-  remote: 'https://biswajitpain:${{ secrets.GITHUB_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io'
+  remote: 'https://biswajitpain:$GITHUB_TOKEN@github.com/biswajitpain/biswajitpain.github.io'
