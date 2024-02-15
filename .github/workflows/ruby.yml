@@ -41,5 +41,5 @@ jobs:
       run: rake github
       
     - name: Create report file
-      run: git push
+      run: git push origin gh-pages
     
