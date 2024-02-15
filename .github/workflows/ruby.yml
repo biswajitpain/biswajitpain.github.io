@@ -45,5 +45,6 @@ jobs:
        cd /tmp/checkout
        git log --oneline
        git remote -v
+       git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io.git
        git push origin gh-pages
     
