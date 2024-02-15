@@ -20,22 +20,22 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        persist-credentials: false
+        persist-credentials: true
     - name: Reconfigure git to use HTTP authentication
       run: >
-           git config --global url."https://biswajitpain:${{ secrets.GH_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io".insteadOf ssh://git@github.com/biswajitpain/biswajitpain.github.io.git \ 
+           git config --global url."https://biswajitpain:${{ secrets.GITHUB_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io".insteadOf ssh://git@github.com/biswajitpain/biswajitpain.github.io.git \ 
            && git config --global user.email "email@biswajit.top" && git config --global user.name "Biswajit Pain" \
-           && git remote set-url origin "https://biswajitpain:${{ secrets.GH_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io"
+           && git remote set-url origin "https://biswajitpain:${{ secrets.GITHUB_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io"
       
     - name: Set up Ruby 3.2
       uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
       with:
-        ruby-version: 2.6
+        ruby-version: 3.2
     - name: Check files
       run:  pwd && ls -ltr
     - name: Run Install
       run: bundle install
     - name: Set remote
-      run: git remote set-url origin "https://biswajitpain:${{ secrets.GH_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io"
+      run: git remote set-url origin "https://biswajitpain:${{ secrets.GITHUB_TOKEN }}@github.com/biswajitpain/biswajitpain.github.io"
     - name: Run GitHub
       run: rake github
