@@ -66,7 +66,8 @@ task :github do
 
   p files
 
-  root = "/tmp/checkout-#{Time.now.to_i}"
+  #root = "/tmp/checkout-#{Time.now.to_i}"
+  root = "/tmp/checkout"
   g = Git.clone(remote, root, :log => Logger.new(STDOUT))
   # g.add_remote('origin', remote)
 
