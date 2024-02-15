@@ -44,5 +44,6 @@ jobs:
       run: |
        cd /tmp/checkout
        git log --oneline
+       git remote -v
        git push origin gh-pages
     
