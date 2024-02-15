@@ -44,5 +44,5 @@ jobs:
       env:
           GITHUB_PAT: ${{ secrets.GH_TOKEN }}
       run: >
-        echo $(GITHUB_PAT) \
+        echo $GITHUB_PAT \
         && rake github
