@@ -87,6 +87,7 @@ task :github do
   g.commit('Regenerating Github Pages.')
 
   # PUSH!
+  g.add_remote('origin', remote)
   g.push(g.remote('origin'), g.branch('gh-pages'))
 
   puts '--> GitHub Pages Commit and Push successful.'
