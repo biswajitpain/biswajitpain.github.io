@@ -35,10 +35,10 @@ jobs:
       run:  pwd && ls -ltr
     - name: Run Install
       run: bundle install
-    - name: Set remote
-      env:
-          GITHUB_TOKEN: ${{ github.token }}
-      run: git remote set-url origin "https://biswajitpain:$GITHUB_TOKEN@github.com/biswajitpain/biswajitpain.github.io"
+    # - name: Set remote
+    #   env:
+    #       GITHUB_TOKEN: ${{ github.token }}
+    #   run: git remote set-url origin "https://biswajitpain:$GITHUB_TOKEN@github.com/biswajitpain/biswajitpain.github.io"
     - name: Run GitHub
       env:
           GITHUB_TOKEN: ${{ github.token }}
