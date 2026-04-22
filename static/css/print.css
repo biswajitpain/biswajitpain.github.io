@@ -1,0 +1,130 @@
+/* ============================================================
+   Print stylesheet — sole authority at @media print
+   Hides all chrome and exposes only the resume/CV article.
+   ============================================================ */
+
+@page {
+  size: A4 portrait;
+  margin: 18mm 20mm 18mm 20mm;
+}
+
+/* Hide everything except the CV content */
+.no-print,
+.site-nav,
+.site-footer,
+.resume-actions,
+.generate-header,
+.generate-form-panel,
+.preview-toolbar,
+.preview-placeholder,
+nav, footer {
+  display: none !important;
+}
+
+body {
+  background: #fff;
+  color: #000;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  padding: 0;
+  margin: 0;
+}
+
+/* Strip layout containers */
+.resume-container,
+.generate-page,
+.generate-layout,
+.generate-preview-panel {
+  display: block !important;
+  max-width: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* The CV article */
+.resume-body,
+article.resume-body {
+  background: #fff !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  width: 100% !important;
+  font-size: 9.5pt;
+  line-height: 1.5;
+}
+
+/* Ensure AI-generated CV is visible on print */
+#cv-output { display: block !important; }
+
+.resume-body h1 {
+  font-size: 18pt;
+  font-weight: bold;
+  margin: 0 0 4pt;
+  page-break-after: avoid;
+  border: none;
+}
+.resume-body h1 + ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 6pt;
+  font-size: 8.5pt;
+  color: #555;
+  display: block;
+}
+.resume-body h1 + ul li { display: inline; }
+.resume-body h1 + ul li::after { content: " \B7  "; }
+.resume-body h1 + ul li:last-child::after { content: ""; }
+
+.resume-body h2 {
+  font-size: 9.5pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #444;
+  margin-top: 10pt;
+  margin-bottom: 3pt;
+  padding-bottom: 2pt;
+  border-bottom: .75pt solid #bbb;
+  page-break-after: avoid;
+}
+.resume-body h3 {
+  font-size: 9.5pt;
+  font-weight: bold;
+  margin-top: 6pt;
+  margin-bottom: 1pt;
+  page-break-after: avoid;
+}
+.resume-body h4 {
+  font-size: 9pt;
+  font-weight: bold;
+  color: #555;
+  margin-top: 4pt;
+  page-break-after: avoid;
+}
+.resume-body p  { margin: 2pt 0; orphans: 3; widows: 3; }
+.resume-body ul,
+.resume-body ol { margin: 3pt 0 3pt 14pt; }
+.resume-body li { margin: 1pt 0; }
+.resume-body strong { font-weight: bold; }
+.resume-body a,
+.resume-body a:visited { color: #000; text-decoration: none; }
+.resume-body hr { border: none; border-top: .5pt solid #ccc; margin: 6pt 0; }
+
+/* Don't break inside a job entry */
+.resume-body h3,
+.resume-body h4,
+.resume-body h3 + ul,
+.resume-body h3 + p { page-break-inside: avoid; }

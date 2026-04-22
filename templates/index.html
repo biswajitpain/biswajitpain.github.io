@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Biswajit Pain — Resume{% endblock %}
+
+{% block content %}
+<div class="resume-container">
+  <div class="resume-actions no-print">
+    <a class="btn btn-outline" href="{{ url_for('download_txt') }}">Plain Text</a>
+    <a class="btn btn-outline" href="{{ url_for('download_pdf') }}">Download PDF</a>
+    <a class="btn btn-primary" href="{{ url_for('generate') }}">Generate Tailored CV &rarr;</a>
+  </div>
+
+  <article id="resume" class="resume-body">
+    {{ resume_html | safe }}
+  </article>
+</div>
+{% endblock %}

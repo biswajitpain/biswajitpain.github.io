@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block title %}Generate Tailored CV — Biswajit Pain{% endblock %}
+{% block description %}Generate a CV tailored to a specific role using Claude AI.{% endblock %}
+
+{% block extra_head %}
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="generate-page">
+  <header class="generate-header no-print">
+    <h1>Generate a Tailored CV</h1>
+    <p class="generate-subtitle">Paste a job description and Claude will tailor the resume to match the role — streamed live.</p>
+  </header>
+
+  <div class="generate-layout">
+
+    <!-- Form panel (left) -->
+    <aside class="generate-form-panel no-print">
+      <form id="generate-form" novalidate>
+        <div class="form-group">
+          <label for="role_title">Role Title <span class="required">*</span></label>
+          <input
+            type="text"
+            id="role_title"
+            name="role_title"
+            placeholder="e.g. Staff Infrastructure Engineer"
+            autocomplete="off"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input
+            type="text"
+            id="company"
+            name="company"
+            placeholder="e.g. Stripe"
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="job_description">Job Description <span class="required">*</span></label>
+          <textarea
+            id="job_description"
+            name="job_description"
+            rows="16"
+            placeholder="Paste the full job description here&#8230;"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" id="generate-btn" class="btn btn-primary btn-full">
+            Generate CV
+          </button>
+          <button type="button" id="reset-btn" class="btn btn-ghost btn-full" style="display:none">
+            Reset
+          </button>
+        </div>
+
+        <p id="status-msg" class="status-msg" aria-live="polite"></p>
+      </form>
+    </aside>
+
+    <!-- Preview panel (right) -->
+    <section class="generate-preview-panel">
+      <div class="preview-toolbar no-print">
+        <span class="preview-label">Preview</span>
+        <div class="preview-actions">
+          <button id="copy-btn" class="btn btn-ghost btn-sm" style="display:none" onclick="copyMarkdown()">
+            Copy Markdown
+          </button>
+          <button id="print-btn" class="btn btn-outline btn-sm" style="display:none" onclick="window.print()">
+            Print / Save PDF
+          </button>
+        </div>
+      </div>
+
+      <div id="preview-placeholder" class="preview-placeholder no-print">
+        <p>Your tailored CV will stream here as Claude generates it.</p>
+      </div>
+
+      <article id="cv-output" class="resume-body" style="display:none"></article>
+    </section>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  marked.setOptions({ gfm: true, breaks: false });
+
+  const form        = document.getElementById('generate-form');
+  const genBtn      = document.getElementById('generate-btn');
+  const resetBtn    = document.getElementById('reset-btn');
+  const printBtn    = document.getElementById('print-btn');
+  const copyBtn     = document.getElementById('copy-btn');
+  const statusMsg   = document.getElementById('status-msg');
+  const placeholder = document.getElementById('preview-placeholder');
+  const cvOutput    = document.getElementById('cv-output');
+
+  let accumulatedMd = '';
+
+  /* ── Helpers ───────────────────────────────────────────── */
+
+  function setStatus(msg, type) {
+    statusMsg.textContent = msg;
+    statusMsg.className = 'status-msg' + (type ? ' status-' + type : '');
+  }
+
+  function setInputsDisabled(disabled) {
+    ['role_title', 'company', 'job_description'].forEach(function (id) {
+      document.getElementById(id).disabled = disabled;
+    });
+  }
+
+  function resetUI() {
+    accumulatedMd = '';
+    cvOutput.innerHTML = '';
+    cvOutput.style.display = 'none';
+    placeholder.style.display = 'flex';
+    printBtn.style.display = 'none';
+    copyBtn.style.display = 'none';
+    genBtn.disabled = false;
+    genBtn.textContent = 'Generate CV';
+    resetBtn.style.display = 'none';
+    setStatus('');
+    setInputsDisabled(false);
+  }
+
+  function renderPreview() {
+    cvOutput.innerHTML = marked.parse(accumulatedMd);
+    if (cvOutput.style.display === 'none') {
+      cvOutput.style.display = 'block';
+    }
+  }
+
+  function onDone() {
+    setInputsDisabled(false);
+    genBtn.disabled = false;
+    genBtn.textContent = 'Regenerate';
+    resetBtn.style.display = 'block';
+    if (accumulatedMd) {
+      printBtn.style.display = 'inline-flex';
+      copyBtn.style.display = 'inline-flex';
+      setStatus('Done. Use Print / Save PDF to export.', 'success');
+    }
+  }
+
+  function processChunk(chunk) {
+    const lines = chunk.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      if (!line.startsWith('data: ')) continue;
+
+      const data = line.slice(6).trim();
+      if (data === '[DONE]') { onDone(); return; }
+
+      try {
+        const parsed = JSON.parse(data);
+        if (parsed.error) {
+          setStatus('Error: ' + parsed.error, 'error');
+          genBtn.disabled = false;
+          genBtn.textContent = 'Generate CV';
+          setInputsDisabled(false);
+          return;
+        }
+        if (parsed.token) {
+          accumulatedMd += parsed.token;
+          renderPreview();
+        }
+      } catch (e) { /* skip malformed JSON */ }
+    }
+  }
+
+  /* ── Submit handler ─────────────────────────────────────── */
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const roleTitle = document.getElementById('role_title').value.trim();
+    const jd        = document.getElementById('job_description').value.trim();
+
+    if (!roleTitle || !jd) {
+      setStatus('Role title and job description are required.', 'error');
+      return;
+    }
+
+    // Reset output
+    accumulatedMd = '';
+    cvOutput.innerHTML = '';
+    cvOutput.style.display = 'none';
+    placeholder.style.display = 'none';
+    printBtn.style.display = 'none';
+    copyBtn.style.display = 'none';
+    setStatus('');
+
+    // Loading state
+    genBtn.disabled = true;
+    genBtn.textContent = 'Generating\u2026';
+    resetBtn.style.display = 'none';
+    setInputsDisabled(true);
+    setStatus('Connecting to Claude\u2026', 'info');
+
+    const formData = new FormData(form);
+
+    fetch('/generate/stream', { method: 'POST', body: formData })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Server error ' + response.status);
+        setStatus('Streaming\u2026', 'info');
+
+        const reader  = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer    = '';
+
+        function pump() {
+          return reader.read().then(function (result) {
+            if (result.done) {
+              if (buffer.trim()) processChunk(buffer);
+              onDone();
+              return;
+            }
+            buffer += decoder.decode(result.value, { stream: true });
+            const parts = buffer.split('\n\n');
+            buffer = parts.pop();
+            parts.forEach(function (part) { processChunk(part + '\n\n'); });
+            return pump();
+          });
+        }
+
+        return pump();
+      })
+      .catch(function (err) {
+        setStatus('Error: ' + err.message, 'error');
+        genBtn.disabled = false;
+        genBtn.textContent = 'Generate CV';
+        setInputsDisabled(false);
+      });
+  });
+
+  /* ── Reset ──────────────────────────────────────────────── */
+
+  resetBtn.addEventListener('click', resetUI);
+
+  /* ── Copy Markdown ──────────────────────────────────────── */
+
+  window.copyMarkdown = function () {
+    navigator.clipboard.writeText(accumulatedMd).then(function () {
+      copyBtn.textContent = 'Copied!';
+      setTimeout(function () { copyBtn.textContent = 'Copy Markdown'; }, 2000);
+    });
+  };
+
+})();
+</script>
+{% endblock %}
