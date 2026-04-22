@@ -1,11 +1,15 @@
 import io
 import json
 import os
-import textwrap
 from pathlib import Path
 
 import anthropic
 import yaml
+from docx import Document as DocxDocument
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
+from docx.shared import Pt, RGBColor, Twips
 from dotenv import load_dotenv
 from fpdf import FPDF
 from flask import (
@@ -288,6 +292,233 @@ class CvPDF(FPDF):
             self.cell(self._w(), 4, _sanitize(inst), ln=True)
 
 
+# ── DOCX generation ──────────────────────────────────────────────────
+
+class CvDOCX:
+    """
+    Professional CV DOCX matching the Calibri / Navy style.
+
+    Layout mirrors the JS docx reference implementation:
+      - Calibri throughout, navy (#1F3A5F) accent colour
+      - Section headings: uppercase, bold 13pt, navy bottom border
+      - Job title line: bold left, italic period right-aligned via tab stop
+      - Company line: bold navy left, italic grey location right
+      - Bullet points: hanging-indent (left=360tw, hanging=260tw)
+      - Project sub-headers: bold italic grey
+    """
+
+    NAVY = RGBColor(0x1F, 0x3A, 0x5F)
+    GRAY = RGBColor(0x59, 0x59, 0x59)
+
+    def __init__(self, cv: dict):
+        self.cv = cv
+        self.doc = DocxDocument()
+        self._setup_page()
+        self._build()
+
+    # ── page setup ────────────────────────────────────────────────────
+
+    def _setup_page(self):
+        sec = self.doc.sections[0]
+        sec.page_width  = Twips(11906)   # A4 width
+        sec.page_height = Twips(16838)   # A4 height
+        sec.left_margin   = Twips(1000)
+        sec.right_margin  = Twips(1000)
+        sec.top_margin    = Twips(600)
+        sec.bottom_margin = Twips(600)
+
+    # ── low-level helpers ─────────────────────────────────────────────
+
+    def _sp(self, para, *, before=0, after=80, line=276):
+        """Set paragraph spacing (twips)."""
+        fmt = para.paragraph_format
+        fmt.space_before  = Twips(before)
+        fmt.space_after   = Twips(after)
+        fmt.line_spacing  = Twips(line)
+
+    def _run(self, para, text, *, size=11, bold=False, italic=False, color=None):
+        r = para.add_run(text)
+        r.font.name  = "Calibri"
+        r.font.size  = Pt(size)
+        r.bold       = bold
+        r.italic     = italic
+        if color is not None:
+            r.font.color.rgb = (
+                RGBColor.from_string(color) if isinstance(color, str) else color
+            )
+        return r
+
+    def _right_tab(self, para, pos: int = 9360):
+        """Add a right-aligned tab stop at pos (twips)."""
+        pPr  = para._p.get_or_add_pPr()
+        tabs = OxmlElement("w:tabs")
+        tab  = OxmlElement("w:tab")
+        tab.set(qn("w:val"), "right")
+        tab.set(qn("w:pos"), str(pos))
+        tabs.append(tab)
+        pPr.append(tabs)
+
+    def _bottom_border(self, para):
+        """Add navy bottom border to paragraph (section heading style)."""
+        pPr  = para._p.get_or_add_pPr()
+        pBdr = OxmlElement("w:pBdr")
+        btm  = OxmlElement("w:bottom")
+        btm.set(qn("w:val"),   "single")
+        btm.set(qn("w:sz"),    "8")
+        btm.set(qn("w:space"), "2")
+        btm.set(qn("w:color"), "1F3A5F")
+        pBdr.append(btm)
+        pPr.append(pBdr)
+
+    # ── paragraph builders ────────────────────────────────────────────
+
+    def _para(self, text="", *, size=11, bold=False, italic=False,
+              color=None, before=0, after=80, line=276, align=None):
+        p = self.doc.add_paragraph()
+        self._sp(p, before=before, after=after, line=line)
+        if align:
+            p.alignment = align
+        if text:
+            self._run(p, text, size=size, bold=bold, italic=italic, color=color)
+        return p
+
+    def _mixed(self, runs_data, *, before=0, after=60, line=276, align=None):
+        """Paragraph with multiple differently-formatted runs."""
+        p = self.doc.add_paragraph()
+        self._sp(p, before=before, after=after, line=line)
+        if align:
+            p.alignment = align
+        for rd in runs_data:
+            self._run(p, rd["text"],
+                      size=rd.get("size", 11),
+                      bold=rd.get("bold", False),
+                      italic=rd.get("italic", False),
+                      color=rd.get("color"))
+        return p
+
+    def _section_heading(self, text: str):
+        p = self.doc.add_paragraph()
+        self._sp(p, before=120, after=20)
+        self._run(p, text.upper(), size=13, bold=True, color=self.NAVY)
+        self._bottom_border(p)
+        return p
+
+    def _job_title_line(self, title: str, period: str):
+        p = self.doc.add_paragraph()
+        self._sp(p, before=120, after=20)
+        self._right_tab(p)
+        self._run(p, title,  bold=True)
+        self._run(p, "\t")
+        self._run(p, period, italic=True)
+        return p
+
+    def _company_line(self, company: str, location: str):
+        p = self.doc.add_paragraph()
+        self._sp(p, before=0, after=40, line=256)
+        self._right_tab(p)
+        self._run(p, company,  bold=True, color=self.NAVY)
+        self._run(p, "\t")
+        self._run(p, location, italic=True, color=self.GRAY)
+        return p
+
+    def _bullet(self, text: str):
+        """Hanging-indent bullet: left=360tw, hanging=260tw, tab stop at 360."""
+        p = self.doc.add_paragraph()
+        self._sp(p, before=0, after=20, line=256)
+        fmt = p.paragraph_format
+        fmt.left_indent        = Twips(360)
+        fmt.first_line_indent  = Twips(-260)
+        # Left tab stop at indent position so wrapped lines align correctly
+        pPr  = p._p.get_or_add_pPr()
+        tabs = OxmlElement("w:tabs")
+        tab  = OxmlElement("w:tab")
+        tab.set(qn("w:val"), "left")
+        tab.set(qn("w:pos"), "360")
+        tabs.append(tab)
+        pPr.append(tabs)
+        self._run(p, "\u2022\t")
+        self._run(p, " ".join(text.split()))
+        return p
+
+    def _project_header(self, text: str):
+        p = self.doc.add_paragraph()
+        self._sp(p, before=60, after=20, line=256)
+        self._run(p, text, bold=True, italic=True, color=self.GRAY)
+        return p
+
+    # ── document build ────────────────────────────────────────────────
+
+    def _build(self):
+        pers = self.cv.get("personal", {})
+
+        # Header
+        self._para(pers.get("name", ""), size=26, bold=True, color=self.NAVY,
+                   align=WD_ALIGN_PARAGRAPH.CENTER, before=0, after=40)
+        if pers.get("title"):
+            self._para(pers["title"], size=12, color=self.GRAY,
+                       align=WD_ALIGN_PARAGRAPH.CENTER, after=40)
+        contact = [x for x in [
+            pers.get("location"),
+            pers.get("phone"),
+            pers.get("email"),
+            f"github.com/{pers['github']}"    if pers.get("github")   else None,
+            f"linkedin.com/in/{pers['linkedin']}" if pers.get("linkedin") else None,
+        ] if x]
+        if contact:
+            self._para("  \u2022  ".join(contact), size=10, color=self.GRAY,
+                       align=WD_ALIGN_PARAGRAPH.CENTER, after=120)
+
+        # Profile
+        if self.cv.get("profile"):
+            self._section_heading("Profile")
+            self._para(self.cv["profile"].strip(), after=80)
+
+        # Technical Skills
+        if self.cv.get("skills"):
+            self._section_heading("Technical Skills")
+            for s in self.cv["skills"]:
+                self._mixed([
+                    {"text": s["category"] + ": ", "bold": True, "color": "1F3A5F"},
+                    {"text": str(s.get("items", ""))}
+                ], after=20)
+
+        # Experience
+        if self.cv.get("experience"):
+            self._section_heading("Experience")
+            for job in self.cv["experience"]:
+                self._job_title_line(
+                    job.get("title", ""),
+                    job.get("period", "")
+                )
+                self._company_line(
+                    job.get("company", ""),
+                    job.get("location", "")
+                )
+                for h in job.get("highlights", []):
+                    if h.get("title"):
+                        self._project_header(h["title"])
+                    for pt in h.get("points", []):
+                        self._bullet(" ".join(pt.split()))
+                for pt in job.get("points", []):
+                    self._bullet(" ".join(pt.split()))
+
+        # Education
+        if self.cv.get("education"):
+            self._section_heading("Education")
+            for e in self.cv["education"]:
+                suffix = f" ({e['year']})" if e.get("year") else ""
+                self._mixed([
+                    {"text": e.get("degree", ""), "bold": True},
+                    {"text": f" \u2014 {e.get('institution', '')}{suffix}",
+                     "color": "595959"}
+                ], after=0)
+
+    def get_bytes(self) -> bytes:
+        buf = io.BytesIO()
+        self.doc.save(buf)
+        return buf.getvalue()
+
+
 # ── Routes ────────────────────────────────────────────────────────────
 
 @app.route("/")
@@ -318,6 +549,18 @@ def download_pdf():
         buf.getvalue(),
         mimetype="application/pdf",
         headers={"Content-Disposition": f"attachment; filename={name}_CV.pdf"}
+    )
+
+
+@app.route("/download/docx")
+def download_docx():
+    cv = load_cv()
+    doc = CvDOCX(cv)
+    name = cv.get("personal", {}).get("name", "Resume").replace(" ", "_")
+    return Response(
+        doc.get_bytes(),
+        mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        headers={"Content-Disposition": f"attachment; filename={name}_CV.docx"}
     )
 
 
