@@ -7,6 +7,8 @@ gem 'redcarpet'
 gem 'sass'
 gem 'sinatra'
 gem 'thin'
+gem 'rackup'
+gem 'webrick'
 gem 'tilt'
 gem 'octokit'
 
