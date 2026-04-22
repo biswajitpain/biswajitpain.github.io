@@ -306,6 +306,109 @@ main { padding: 2rem 1.5rem 4rem; }
 }
 
 /* ============================================================
+   CV structured layout (index page)
+   ============================================================ */
+
+/* Header */
+.cv-header { margin-bottom: 1.25rem; }
+.cv-header h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: .25rem;
+  border: none;
+}
+.cv-title {
+  font-size: 1rem;
+  color: var(--muted);
+  margin: 0 0 .6rem;
+}
+.cv-contact {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .2rem 1.25rem;
+  font-size: .8375rem;
+  color: var(--muted);
+}
+.cv-contact a { color: var(--muted); }
+.cv-contact a:hover { color: var(--accent); }
+
+/* Section */
+.cv-section { margin-top: 1.75rem; }
+.cv-section h2 {
+  font-size: .8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: .35rem;
+  margin-bottom: .9rem;
+}
+
+/* Job entries */
+.cv-job { margin-bottom: 1.25rem; }
+.cv-job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: .2rem;
+}
+.cv-job-title {
+  font-size: .9375rem;
+  font-weight: 700;
+  margin: 0;
+}
+.cv-period {
+  font-size: .8125rem;
+  color: var(--muted);
+  white-space: nowrap;
+  margin-top: .1rem;
+}
+.cv-company {
+  font-size: .8375rem;
+  color: var(--muted);
+  margin: .1rem 0 .5rem;
+  font-style: italic;
+}
+.cv-highlight { margin-top: .5rem; }
+.cv-highlight-title {
+  font-size: .875rem;
+  font-weight: 600;
+  margin: .4rem 0 .2rem;
+  color: var(--text);
+}
+.cv-section ul { margin: .3rem 0 .3rem 1.1rem; padding: 0; }
+.cv-section li { margin: .2rem 0; font-size: .9rem; }
+
+/* Skills */
+.cv-skills { margin: 0; }
+.cv-skill-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: .5rem;
+  padding: .3rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: .875rem;
+}
+.cv-skill-row:last-child { border-bottom: none; }
+.cv-skill-row dt { font-weight: 600; color: var(--text); }
+.cv-skill-row dd { margin: 0; color: var(--muted); }
+
+/* Education */
+.cv-edu {
+  display: flex;
+  align-items: baseline;
+  gap: .75rem;
+  padding: .35rem 0;
+  font-size: .9rem;
+}
+.cv-edu-inst { color: var(--muted); font-size: .875rem; }
+
+/* ============================================================
    Responsive
    ============================================================ */
 @media (max-width: 860px) {

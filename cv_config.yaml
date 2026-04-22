@@ -1,0 +1,193 @@
+# ======================================================================
+# CV Configuration
+# ======================================================================
+# This is the single source of truth for your CV.
+# Edit the fields below, save the file, and reload the page —
+# the web page and downloadable PDF are generated automatically.
+#
+# Structure:
+#   personal    — contact header
+#   profile     — one-paragraph summary
+#   experience  — jobs, most recent first
+#     Each job supports two layouts:
+#       highlights  — project sub-sections, each with a title + points
+#       points      — flat bullet list (no sub-sections)
+#   skills      — category / items pairs (items as a comma-separated string)
+#   education   — degree entries
+#
+# YAML tip: if a bullet point contains ": " (colon-space) in the middle,
+# keep the entire bullet on ONE line to avoid a YAML parsing error.
+# ======================================================================
+
+personal:
+  name: Biswajit Pain
+  title: Systems Development Engineer / Platform Engineer
+  location: Berlin, Germany
+  phone: "+49 151 24865920"
+  email: biswajit.pain@outlook.com
+  github: biswajitpain
+  linkedin: biswajitpain
+
+profile: >
+  Systems Development Engineer with 12+ years building and operating
+  production cloud and distributed-storage infrastructure across AWS,
+  Delivery Hero, Sixt, and VMware. Hands-on experience with Ceph
+  (RBD, RGW, CephFS), Rook on Kubernetes, OpenStack (Cinder, Swift,
+  Nova), and VMware vSAN / vSphere storage, delivered in both
+  production and internal-platform environments. Day-to-day engineering
+  in Go, Python, and Bash across AWS, GCP, and private datacenters;
+  deep troubleshooting through Linux, networking, and the storage
+  layer — from block device and filesystem behaviour up to S3 / object
+  gateway semantics.
+
+experience:
+
+  - company: Amazon Web Services (AWS)
+    title: Lead Systems Development Engineer
+    period: October 2022 – Present
+    location: Berlin, Germany
+    highlights:
+      - title: "Database service — region build and storage layout"
+        points:
+          - Owned the redesign of the region build process for a managed database service with a large distributed storage footprint, deployed across AWS regions.
+          - Rebuilt the provisioning pipeline so new regions come up with correct control-plane topology, storage layout, replication configuration, and networking without manual intervention.
+          - Shortened time-to-first-customer in a new region and removed a class of bootstrap failures caused by race conditions in the storage and control-plane initialization flow.
+      - title: "Sovereign Cloud — Berlin engineering org"
+        points:
+          - Part of the founding engineering group setting up AWS European Sovereign Cloud infrastructure in Berlin.
+          - Ran hundreds of technical interviews (systems design, coding, service deep-dive) to build the local engineering bench for a regulated, isolated cloud region.
+          - Contributed to early technical decisions on service isolation, operator access, and data-residency boundaries.
+      - title: "Game orchestration platform"
+        points:
+          - Engineer on the platform that orchestrates game server fleets for one of the largest game-hosting services on AWS.
+          - Worked on scheduling, capacity, and low-latency session placement across regions.
+      - title: "Team & operations"
+        points:
+          - Technical lead for 10 engineers split across Berlin and a second continent; own architecture reviews, design docs, and on-call quality for the team's services.
+
+  - company: Delivery Hero SE
+    title: Staff Systems Engineer
+    period: April 2020 – September 2022
+    location: Berlin, Germany
+    highlights:
+      - title: "Zero-downtime MySQL migration on GCP"
+        points:
+          - Led migration of a large production MySQL estate to Google Cloud SQL for a globally used ordering platform.
+          - Designed the cutover using replication, read-only windows, and application-level dual-write verification so there was no visible downtime for restaurants or customers.
+          - Built pre- and post-migration consistency checks (row counts, checksum-based diff on critical tables) to prove correctness before committing to the new primary.
+      - title: "Fintech payment reliability"
+        points:
+          - "Debugged and fixed recurring failures in the payment processing path: idempotency gaps, duplicate-charge edge cases, and timeouts against external PSPs."
+          - Added retry/backoff, circuit breakers, and clearer reconciliation jobs; cut payment-related incident volume and improved settlement accuracy.
+      - title: "Internal tooling"
+        points:
+          - Wrote internal CLIs and dashboards (Python + Grafana) to speed up incident triage across the distributed payment services.
+
+  - company: Sixt Research & Development
+    title: Manager III, Site Reliability Engineering
+    period: April 2018 – March 2020
+    location: Berlin / Munich, Germany
+    highlights:
+      - title: "Hydrant — infrastructure automation platform"
+        points:
+          - Led Hydrant — an internal platform that automated provisioning of AWS accounts, VPCs, IAM baselines, and standard service stacks for product teams.
+          - Replaced hand-rolled tickets and ad-hoc Terraform usage with a self-service flow; cut new-environment setup from days to under an hour.
+          - "Stack: Terraform, Python, Jenkins, AWS Organizations."
+      - title: "PCI DSS-compliant payment platform on AWS"
+        points:
+          - "Designed and deployed the payment platform against PCI DSS requirements: network segmentation, restricted IAM, centralized logging, encryption at rest and in transit, audit trails."
+          - Drove the audit with external assessors and passed compliance on first attempt.
+      - title: "Team leadership"
+        points:
+          - Managed 7 SREs across Munich and Bangalore; ran hiring, on-call rotations, and roadmap planning across two sites.
+
+  - company: VMware Software India Pvt. Ltd.
+    title: Member of Technical Staff II
+    period: November 2016 – March 2018
+    location: Bangalore, India
+    highlights:
+      - title: "Ceph storage for multi-cloud IaaS"
+        points:
+          - Designed and operated Ceph clusters providing block (RBD), object (RGW / S3-compatible), and file (CephFS) services backing the multi-cloud IaaS platform.
+          - Sized and built the CRUSH map and pool layout (replicated and erasure-coded pools, separate device classes for SSD and HDD tiers) to match durability and latency targets.
+          - Tuned BlueStore OSDs, placement group counts, scrub schedules, and recovery/backfill throttles to keep client IO predictable during node loss and rebalance events.
+          - "Operated RGW for S3-compatible object storage: bucket lifecycle policies, user and quota management, and multi-site replication between sites."
+      - title: "Rook operator on Kubernetes"
+        points:
+          - Deployed and operated Rook to run Ceph on Kubernetes for internal platforms, automating cluster bring-up, OSD lifecycle on node churn, and version upgrades.
+          - Built StorageClasses and CSI bindings so product teams could consume RBD volumes and CephFS shares as first-class Kubernetes PersistentVolumes.
+          - "Wrote runbooks and automation around the Rook CRDs for day-2 operations: capacity expansion, pool changes, and failure recovery."
+      - title: "OpenStack + Ceph integration"
+        points:
+          - "Integrated Ceph with OpenStack services — RBD as the backend for Cinder (block) and Glance (image), Swift-compatible object storage via RGW."
+          - "Worked across Nova, Cinder, Neutron, and Keystone to debug cross-component issues (volume attach races, auth token failures, network policy and QoS at the storage network layer)."
+          - Reviewed tenant isolation, rate-limiting, and quota enforcement for multi-tenant shared storage.
+      - title: "Platform engineering — microservices and CI"
+        points:
+          - Broke out services from a large monolithic test/CI system into independently deployable microservices with clear API boundaries; introduced service-level health checks and per-service deployment pipelines.
+
+  - company: ANI Technologies (Ola)
+    title: Production Engineer
+    period: January 2016 – October 2016
+    location: Bangalore, India
+    highlights:
+      - title: "HAProxy log analytics pipeline"
+        points:
+          - Built the HAProxy log pipeline using rsyslog, Kafka, Logstash, and Elasticsearch for real-time visibility into traffic patterns and error rates across the fleet.
+          - Used the pipeline to identify slow upstreams and misbehaving clients that had previously been invisible.
+      - title: "Microservice infrastructure"
+        points:
+          - "Contributed to the platform supporting the company's rapid user growth: service discovery, deploy tooling, and base images."
+
+  - company: Knowlarity
+    title: DevOps Engineer
+    period: April 2014 – December 2015
+    location: Bangalore, India
+    highlights:
+      - title: "Multi-datacenter VoIP telephony infrastructure"
+        points:
+          - Designed and built the multi-datacenter VoIP telephony infrastructure powering the company's cloud telephony product across India and SEA.
+          - Built the active-active datacenter layout with SIP trunk termination across sites, media server pools, and carrier-level redundancy so call traffic survived single-DC loss.
+          - "Owned the failover platform end-to-end: DNS, load balancer, Asterisk/FreeSWITCH media nodes, and DB replica cutover runbooks."
+      - title: "Hub-and-spoke network"
+        points:
+          - Designed and rolled out a hub-and-spoke network connecting multiple datacenters, office sites, and carrier interconnects with redundant IPsec tunnels and dynamic routing.
+          - Replaced an unstable full-mesh VPN setup; resolved persistent inter-site routing loops, asymmetric paths, and fragmentation issues that had been causing dropped calls and signaling failures.
+          - Tuned OSPF/BGP route preferences and failover timers so spoke sites re-converged on the surviving hub within seconds of a link loss.
+
+  - company: Tata Consultancy Services (TCS)
+    title: Assistant Systems Engineer / Trainee
+    period: July 2013 – March 2014
+    location: Kolkata, India
+    points:
+      - Delivered infrastructure automation work including storage virtualization tasks for a client engagement.
+      - Led a team of five during the Initial Learning Program.
+
+skills:
+  - category: Languages
+    items: "Go, Python, Bash, C, Java"
+  - category: Kubernetes & Containers
+    items: "Kubernetes, Helm, container runtimes, CRDs / operators, microservices"
+  - category: Cloud & IaaS
+    items: "AWS (EC2, S3, Route53, RDS, CloudFront, CloudWatch, SES, SNS, IAM), GCP, VMware IaaS"
+  - category: Ceph & Distributed Storage
+    items: "Ceph RBD, RGW, CephFS; Rook on Kubernetes; CRUSH maps, placement groups, BlueStore OSDs, erasure coding, replication factors, pool and bucket design; cluster recovery, scrub / backfill tuning, RGW multi-site"
+  - category: OpenStack
+    items: "Cinder (block), Swift (object), Nova (compute), Keystone, Neutron; Ceph-backed Cinder and Glance"
+  - category: Storage
+    items: "VMware vSAN, vSphere storage, enterprise storage (IBM, Hitachi), NAS, S3 / object storage, block volumes, replication, failover"
+  - category: Data
+    items: "MySQL, PostgreSQL, Kafka, Elasticsearch, data migration"
+  - category: Infra as Code / CI/CD
+    items: "Terraform, Chef, Puppet, Jenkins, Git-based pipelines"
+  - category: Observability
+    items: "OpenTSDB, Graylog, Fluentd, Logstash, rsyslog, cAdvisor, Nagios"
+  - category: OS / Networking
+    items: "Linux (RHEL, Ubuntu), performance tuning, TCP/IP, VPN (hub-and-spoke), HAProxy, load balancing"
+  - category: Web Frameworks
+    items: "Django, Flask"
+
+education:
+  - degree: B.Tech, Computer Science and Engineering
+    institution: Kalyani Government Engineering College, India
+    year: "2013"

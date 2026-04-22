@@ -1,17 +1,120 @@
 {% extends "base.html" %}
 
-{% block title %}Biswajit Pain — Resume{% endblock %}
+{% block title %}{{ cv.personal.name }} — Resume{% endblock %}
 
 {% block content %}
 <div class="resume-container">
+
   <div class="resume-actions no-print">
-    <a class="btn btn-outline" href="{{ url_for('download_txt') }}">Plain Text</a>
-    <a class="btn btn-outline" href="{{ url_for('download_pdf') }}">Download PDF</a>
-    <a class="btn btn-primary" href="{{ url_for('generate') }}">Generate Tailored CV &rarr;</a>
+    <a class="btn btn-ghost btn-sm" href="{{ url_for('download_txt') }}">Plain Text</a>
+    <a class="btn btn-outline btn-sm" href="{{ url_for('download_pdf') }}">Download PDF</a>
+    <a class="btn btn-primary btn-sm" href="{{ url_for('generate') }}">Generate Tailored CV &rarr;</a>
   </div>
 
   <article id="resume" class="resume-body">
-    {{ resume_html | safe }}
+
+    {# ── Header ── #}
+    <header class="cv-header">
+      <h1>{{ cv.personal.name }}</h1>
+      {% if cv.personal.title %}
+      <p class="cv-title">{{ cv.personal.title }}</p>
+      {% endif %}
+      <ul class="cv-contact">
+        {% if cv.personal.location %}
+          <li>{{ cv.personal.location }}</li>
+        {% endif %}
+        {% if cv.personal.phone %}
+          <li>{{ cv.personal.phone }}</li>
+        {% endif %}
+        {% if cv.personal.email %}
+          <li><a href="mailto:{{ cv.personal.email }}">{{ cv.personal.email }}</a></li>
+        {% endif %}
+        {% if cv.personal.github %}
+          <li><a href="https://github.com/{{ cv.personal.github }}" target="_blank" rel="noopener">
+            github.com/{{ cv.personal.github }}</a></li>
+        {% endif %}
+        {% if cv.personal.linkedin %}
+          <li><a href="https://linkedin.com/in/{{ cv.personal.linkedin }}" target="_blank" rel="noopener">
+            linkedin.com/in/{{ cv.personal.linkedin }}</a></li>
+        {% endif %}
+      </ul>
+    </header>
+
+    {# ── Profile ── #}
+    {% if cv.profile %}
+    <section class="cv-section">
+      <h2>Profile</h2>
+      <p>{{ cv.profile }}</p>
+    </section>
+    {% endif %}
+
+    {# ── Experience ── #}
+    {% if cv.experience %}
+    <section class="cv-section">
+      <h2>Professional Experience</h2>
+      {% for job in cv.experience %}
+      <div class="cv-job">
+        <div class="cv-job-header">
+          <div>
+            <h3 class="cv-job-title">{{ job.title }}</h3>
+            <p class="cv-company">
+              {{ job.company }}{% if job.location %} &mdash; {{ job.location }}{% endif %}
+            </p>
+          </div>
+          <span class="cv-period">{{ job.period }}</span>
+        </div>
+
+        {% if job.highlights %}
+          {% for h in job.highlights %}
+          <div class="cv-highlight">
+            {% if h.title %}<h4 class="cv-highlight-title">{{ h.title }}</h4>{% endif %}
+            {% if h.points %}
+            <ul>
+              {% for pt in h.points %}<li>{{ pt }}</li>{% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          {% endfor %}
+        {% elif job.points %}
+          <ul>
+            {% for pt in job.points %}<li>{{ pt }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    {# ── Skills ── #}
+    {% if cv.skills %}
+    <section class="cv-section">
+      <h2>Technical Skills</h2>
+      <dl class="cv-skills">
+        {% for s in cv.skills %}
+        <div class="cv-skill-row">
+          <dt>{{ s.category }}</dt>
+          <dd>{{ s.items }}</dd>
+        </div>
+        {% endfor %}
+      </dl>
+    </section>
+    {% endif %}
+
+    {# ── Education ── #}
+    {% if cv.education %}
+    <section class="cv-section">
+      <h2>Education</h2>
+      {% for e in cv.education %}
+      <div class="cv-edu">
+        <strong>{{ e.degree }}</strong>
+        <span class="cv-edu-inst">
+          {{ e.institution }}{% if e.year %} ({{ e.year }}){% endif %}
+        </span>
+      </div>
+      {% endfor %}
+    </section>
+    {% endif %}
+
   </article>
 </div>
 {% endblock %}
