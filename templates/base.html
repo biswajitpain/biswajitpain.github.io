@@ -16,11 +16,13 @@
     <div class="nav-inner">
       <a class="nav-brand" href="{{ url_for('index') }}">Biswajit Pain</a>
       <div class="nav-links">
-        <a href="{{ url_for('index') }}" {% if request.path == '/' %}class="active"{% endif %}>Resume</a>
+        <a href="{{ './' if static_build else url_for('index') }}">Resume</a>
+        {% if not static_build %}
         <a href="{{ url_for('generate') }}" {% if request.path == '/generate' %}class="active"{% endif %}>Generate with AI</a>
-        <a href="{{ url_for('download_txt') }}">Plain Text</a>
-        <a href="{{ url_for('download_pdf') }}" class="btn btn-ghost btn-sm">PDF</a>
-        <a href="{{ url_for('download_docx') }}" class="btn btn-outline btn-sm">Download DOCX</a>
+        {% endif %}
+        <a href="{{ './resume.txt'  if static_build else url_for('download_txt') }}">Plain Text</a>
+        <a href="{{ './resume.pdf'  if static_build else url_for('download_pdf')  }}" class="btn btn-ghost btn-sm">PDF</a>
+        <a href="{{ './resume.docx' if static_build else url_for('download_docx') }}" class="btn btn-outline btn-sm">Download DOCX</a>
       </div>
     </div>
   </nav>

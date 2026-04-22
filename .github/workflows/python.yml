@@ -1,4 +1,4 @@
-name: Python CI
+name: Build & Deploy
 
 on:
   push:
@@ -7,32 +7,63 @@ on:
     branches: [ base ]
 
 jobs:
-  lint-and-test:
-    name: Lint & Test
+  build-and-deploy:
+    name: Build static site and deploy to gh-pages
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write   # needed to push to gh-pages
+
     steps:
-      - name: Checkout
+      - name: Checkout source
         uses: actions/checkout@v4
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: "pip"
+          cache: pip
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install flake8
+          pip install -r requirements.txt flake8
 
-      - name: Lint with flake8
+      - name: Lint (errors only)
         run: |
-          flake8 app.py --count --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 app.py --count --max-line-length=120 --max-complexity=12 --statistics || true
+          flake8 app.py build.py --count --select=E9,F63,F7,F82 \
+            --show-source --statistics
 
-      - name: Smoke test (import check)
+      - name: Build static site
         env:
-          ANTHROPIC_API_KEY: "sk-ant-test-placeholder"
-        run: python -c "import app; print('OK')"
+          STATIC_BUILD: "true"
+          ANTHROPIC_API_KEY: "build-placeholder"
+        run: python build.py
+
+      - name: Verify build artefacts
+        run: |
+          echo "── _site contents ──────────────────────────"
+          find _site -type f | sort
+          echo "────────────────────────────────────────────"
+          test -f _site/index.html
+          test -f _site/resume.pdf
+          test -f _site/resume.docx
+          test -f _site/resume.txt
+          test -f _site/static/css/style.css
+          echo "All required files present."
+
+      - name: Deploy to gh-pages
+        if: github.ref == 'refs/heads/base' && github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name  "github-actions[bot]"
+
+          cd _site
+          git init -b gh-pages
+          git add -A
+          git commit -m "Deploy $(date -u +'%Y-%m-%d %H:%M UTC') from ${GITHUB_SHA::8}"
+          git push --force \
+            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" \
+            gh-pages

@@ -19,8 +19,14 @@ from flask import (
 
 load_dotenv()
 app = Flask(__name__)
+app.config["STATIC_BUILD"] = os.environ.get("STATIC_BUILD", "false").lower() == "true"
 
 CONFIG_FILE = Path("cv_config.yaml")
+
+
+@app.context_processor
+def inject_globals():
+    return {"static_build": app.config["STATIC_BUILD"]}
 
 SYSTEM_PROMPT = """You are an expert CV writer and career coach with 15+ years of experience in technical recruitment.
 Your task is to tailor the candidate's existing CV for a specific role and company.
