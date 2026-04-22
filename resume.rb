@@ -44,3 +44,9 @@ get '/resume.txt' do
   content_type 'text/plain', :charset => 'utf-8'
   File.read(settings.config['file'])
 end
+
+# For the PDF version of our resume
+get '/resume.pdf' do
+  content_type 'application/pdf'
+  send_file File.join(settings.public_folder, 'resume.pdf')
+end
