@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "Bash(bundle exec:*)",
+      "Bash(ruby --version)",
+      "Bash(bundle --version)",
+      "Bash(bundle install:*)",
+      "Bash(rbenv versions:*)",
+      "Bash(asdf list:*)",
+      "Read(//opt/homebrew/bin/**)",
+      "Read(//usr/local/bin/**)",
+      "Bash(brew list:*)",
+      "Bash(brew info:*)",
+      "Bash(export PATH=\"/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH\")",
+      "Bash(gem install:*)",
+      "Bash(git:*)",
+      "Bash(python3 -m venv .venv)",
+      "Bash(.venv/bin/pip install:*)",
+      "Bash(ANTHROPIC_API_KEY=test .venv/bin/python:*)"
+    ]
+  }
+}
