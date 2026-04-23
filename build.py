@@ -56,6 +56,10 @@ def build():
     shutil.copytree("static", BUILD / "static")
     print(f"  static/")
 
+    # Disable Jekyll so GitHub Pages serves the HTML as-is
+    (BUILD / ".nojekyll").touch()
+    print(f"  .nojekyll")
+
     print(f"\n  Build complete → {BUILD}/  "
           f"({sum(f.stat().st_size for f in BUILD.rglob('*') if f.is_file()):,} bytes total)")
 
