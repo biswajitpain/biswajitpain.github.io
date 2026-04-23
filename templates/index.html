@@ -96,7 +96,7 @@
         {% for s in cv.skills %}
         <div class="cv-skill-row">
           <dt>{{ s.category }}</dt>
-          <dd>{{ s.items }}</dd>
+          <dd>{{ s['items'] }}</dd>
         </div>
         {% endfor %}
       </dl>
