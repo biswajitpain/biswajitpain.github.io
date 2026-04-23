@@ -7,8 +7,10 @@
 
   <div class="resume-actions no-print">
     <a class="btn btn-ghost btn-sm"   href="{{ './resume.txt'  if static_build else url_for('download_txt')  }}">Plain Text</a>
-    <a class="btn btn-ghost btn-sm"   href="{{ './resume.pdf'  if static_build else url_for('download_pdf')  }}">PDF</a>
-    <a class="btn btn-outline btn-sm" href="{{ './resume.docx' if static_build else url_for('download_docx') }}">Download DOCX</a>
+    <a class="btn btn-ghost btn-sm" href="{{ './resume.pdf' if static_build else url_for('download_pdf') }}">PDF</a>
+    {% if not static_build %}
+    <a class="btn btn-outline btn-sm" href="{{ url_for('download_docx') }}">Download DOCX</a>
+    {% endif %}
     {% if not static_build %}
     <a class="btn btn-primary btn-sm" href="{{ url_for('generate') }}">Generate Tailored CV &rarr;</a>
     {% endif %}

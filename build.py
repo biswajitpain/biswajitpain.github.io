@@ -48,10 +48,9 @@ def build():
 
         # HTML
         fetch("/",             "index.html", mode="wb")
-        # Downloads
-        fetch("/download/txt", "resume.txt",  mode="wb")
-        fetch("/download/pdf", "resume.pdf",  mode="wb")
-        fetch("/download/docx","resume.docx", mode="wb")
+        # Downloads (DOCX is local-dev only — not included in static build)
+        fetch("/download/txt", "resume.txt", mode="wb")
+        fetch("/download/pdf", "resume.pdf", mode="wb")
 
     # ── static assets ────────────────────────────────────────────────
     shutil.copytree("static", BUILD / "static")
