@@ -19,7 +19,14 @@
       "Bash(git:*)",
       "Bash(python3 -m venv .venv)",
       "Bash(.venv/bin/pip install:*)",
-      "Bash(ANTHROPIC_API_KEY=test .venv/bin/python:*)"
+      "Bash(ANTHROPIC_API_KEY=test .venv/bin/python:*)",
+      "Bash(.venv/bin/python:*)",
+      "Bash(.venv/bin/pip uninstall:*)",
+      "Bash(.venv/bin/pip freeze:*)",
+      "Bash(STATIC_BUILD=true ANTHROPIC_API_KEY=test .venv/bin/python:*)",
+      "Bash(lsof -ti:5001)",
+      "Bash(xargs kill:*)",
+      "Bash(FLASK_DEBUG=true PORT=5001 .venv/bin/python app.py)"
     ]
   }
 }
