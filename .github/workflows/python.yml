@@ -6,13 +6,16 @@ on:
   pull_request:
     branches: [ base ]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build-and-deploy:
     name: Build static site and deploy to gh-pages
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write   # needed to push to gh-pages
+      contents: write
 
     steps:
       - name: Checkout source
@@ -47,8 +50,8 @@ jobs:
           echo "────────────────────────────────────────────"
           test -f _site/index.html
           test -f _site/resume.pdf
-          test -f _site/resume.docx
           test -f _site/resume.txt
+          test -f _site/.nojekyll
           test -f _site/static/css/style.css
           echo "All required files present."
 
@@ -61,9 +64,10 @@ jobs:
           git config --global user.name  "github-actions[bot]"
 
           cd _site
-          git init -b gh-pages
+          git init
           git add -A
           git commit -m "Deploy $(date -u +'%Y-%m-%d %H:%M UTC') from ${GITHUB_SHA::8}"
+          git branch -M gh-pages
           git push --force \
             "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" \
             gh-pages
