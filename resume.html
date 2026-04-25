@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biswajit Pain — Resume</title>
+  <meta name="author" content="Biswajit Pain">
+  <meta name="description" content="Systems Development Engineer — Portfolio">
+  <link rel="icon" href="/static/favicon.ico">
+  <link rel="stylesheet" href="/static/css/style.css" media="screen">
+  <link rel="stylesheet" href="/static/css/print.css" media="print">
+  
+</head>
+<body>
+  <nav class="site-nav no-print">
+    <div class="nav-inner">
+      <a class="nav-brand" href="./">Biswajit Pain</a>
+      <div class="nav-links">
+        <a href="./"
+           >Portfolio</a>
+        <a href="./resume.html"
+           class="active">Resume</a>
+        
+        <a href="./resume.pdf" class="btn btn-ghost btn-sm">PDF</a>
+        
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    
+<div class="resume-container">
+
+  <div class="resume-actions no-print">
+    <a class="btn btn-ghost btn-sm" href="./resume.txt">Plain Text</a>
+    <a class="btn btn-ghost btn-sm" href="./resume.pdf">PDF</a>
+    
+  </div>
+
+  <article id="resume" class="resume-body">
+
+    
+    <header class="cv-header">
+      <h1>Biswajit Pain</h1>
+      
+      <p class="cv-title">Systems Development Engineer / Platform Engineer</p>
+      
+      <ul class="cv-contact">
+        <li>Berlin, Germany</li>
+        <li>+49 151 24865920</li>
+        
+          <li><a href="mailto:biswajit.pain@outlook.com">biswajit.pain@outlook.com</a></li>
+        
+        
+          <li><a href="https://github.com/biswajitpain" target="_blank" rel="noopener">github.com/biswajitpain</a></li>
+        
+        
+          <li><a href="https://linkedin.com/in/biswajitpain" target="_blank" rel="noopener">linkedin.com/in/biswajitpain</a></li>
+        
+      </ul>
+    </header>
+
+    
+    
+    <section class="cv-section">
+      <h2>Profile</h2>
+      <p>Systems Development Engineer with 12+ years building and operating production cloud and distributed-storage infrastructure across AWS, Delivery Hero, Sixt, and VMware. Hands-on experience with Ceph (RBD, RGW, CephFS), Rook on Kubernetes, OpenStack (Cinder, Swift, Nova), and VMware vSAN / vSphere storage, delivered in both production and internal-platform environments. Day-to-day engineering in Go, Python, and Bash across AWS, GCP, and private datacenters; deep troubleshooting through Linux, networking, and the storage layer — from block device and filesystem behaviour up to S3 / object gateway semantics.
+</p>
+    </section>
+    
+
+    
+    
+    <section class="cv-section">
+      <h2>Professional Experience</h2>
+      
+      <div class="cv-job">
+        <div class="cv-job-header">
+          <div>
+            <h3 class="cv-job-title">Lead Systems Development Engineer</h3>
+            <p class="cv-company">Amazon Web Services (AWS) &mdash; Berlin, Germany</p>
+          </div>
+          <span class="cv-period">October 2022 – Present</span>
+        </div>
+        
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Database service — region build and storage layout</h4>
+            <ul><li>Owned the redesign of the region build process for a managed database service with a large distributed storage footprint, deployed across AWS regions.</li><li>Rebuilt the provisioning pipeline so new regions come up with correct control-plane topology, storage layout, replication configuration, and networking without manual intervention.</li><li>Shortened time-to-first-customer in a new region and removed a class of bootstrap failures caused by race conditions in the storage and control-plane initialization flow.</li></ul>
+          </div>
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Sovereign Cloud — Berlin engineering org</h4>
+            <ul><li>Part of the founding engineering group setting up AWS European Sovereign Cloud infrastructure in Berlin.</li><li>Ran hundreds of technical interviews (systems design, coding, service deep-dive) to build the local engineering bench for a regulated, isolated cloud region.</li><li>Contributed to early technical decisions on service isolation, operator access, and data-residency boundaries.</li></ul>
+          </div>
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Game orchestration platform</h4>
+            <ul><li>Engineer on the platform that orchestrates game server fleets for one of the largest game-hosting services on AWS.</li><li>Worked on scheduling, capacity, and low-latency session placement across regions.</li></ul>
+          </div>
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Team &amp; operations</h4>
+            <ul><li>Technical lead for 10 engineers split across Berlin and a second continent; own architecture reviews, design docs, and on-call quality for the team&#39;s services.</li></ul>
+          </div>
+          
+        
+      </div>
+      
+      <div class="cv-job">
+        <div class="cv-job-header">
+          <div>
+            <h3 class="cv-job-title">Staff Systems Engineer</h3>
+            <p class="cv-company">Delivery Hero SE &mdash; Berlin, Germany</p>
+          </div>
+          <span class="cv-period">April 2020 – September 2022</span>
+        </div>
+        
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Zero-downtime MySQL migration on GCP</h4>
+            <ul><li>Led migration of a large production MySQL estate to Google Cloud SQL for a globally used ordering platform.</li><li>Designed the cutover using replication, read-only windows, and application-level dual-write verification so there was no visible downtime for restaurants or customers.</li><li>Built pre- and post-migration consistency checks (row counts, checksum-based diff on critical tables) to prove correctness before committing to the new primary.</li></ul>
+          </div>
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Fintech payment reliability</h4>
+            <ul><li>Debugged and fixed recurring failures in the payment processing path: idempotency gaps, duplicate-charge edge cases, and timeouts against external PSPs.</li><li>Added retry/backoff, circuit breakers, and clearer reconciliation jobs; cut payment-related incident volume and improved settlement accuracy.</li></ul>
+          </div>
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Internal tooling</h4>
+            <ul><li>Wrote internal CLIs and dashboards (Python + Grafana) to speed up incident triage across the distributed payment services.</li></ul>
+          </div>
+          
+        
+      </div>
+      
+      <div class="cv-job">
+        <div class="cv-job-header">
+          <div>
+            <h3 class="cv-job-title">Manager III, Site Reliability Engineering</h3>
+            <p class="cv-company">Sixt Research &amp; Development &mdash; Berlin / Munich, Germany</p>
+          </div>
+          <span class="cv-period">April 2018 – March 2020</span>
+        </div>
+        
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Hydrant — infrastructure automation platform</h4>
+            <ul><li>Led Hydrant — an internal platform that automated provisioning of AWS accounts, VPCs, IAM baselines, and standard service stacks for product teams.</li><li>Replaced hand-rolled tickets and ad-hoc Terraform usage with a self-service flow; cut new-environment setup from days to under an hour.</li><li>Stack: Terraform, Python, Jenkins, AWS Organizations.</li></ul>
+          </div>
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">PCI DSS-compliant payment platform on AWS</h4>
+            <ul><li>Designed and deployed the payment platform against PCI DSS requirements: network segmentation, restricted IAM, centralized logging, encryption at rest and in transit, audit trails.</li><li>Drove the audit with external assessors and passed compliance on first attempt.</li></ul>
+          </div>
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Team leadership</h4>
+            <ul><li>Managed 7 SREs across Munich and Bangalore; ran hiring, on-call rotations, and roadmap planning across two sites.</li></ul>
+          </div>
+          
+        
+      </div>
+      
+      <div class="cv-job">
+        <div class="cv-job-header">
+          <div>
+            <h3 class="cv-job-title">Member of Technical Staff II</h3>
+            <p class="cv-company">VMware Software India Pvt. Ltd. &mdash; Bangalore, India</p>
+          </div>
+          <span class="cv-period">November 2016 – March 2018</span>
+        </div>
+        
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Ceph storage for multi-cloud IaaS</h4>
+            <ul><li>Designed and operated Ceph clusters providing block (RBD), object (RGW / S3-compatible), and file (CephFS) services backing the multi-cloud IaaS platform.</li><li>Sized and built the CRUSH map and pool layout (replicated and erasure-coded pools, separate device classes for SSD and HDD tiers) to match durability and latency targets.</li><li>Tuned BlueStore OSDs, placement group counts, scrub schedules, and recovery/backfill throttles to keep client IO predictable during node loss and rebalance events.</li><li>Operated RGW for S3-compatible object storage: bucket lifecycle policies, user and quota management, and multi-site replication between sites.</li></ul>
+          </div>
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Rook operator on Kubernetes</h4>
+            <ul><li>Deployed and operated Rook to run Ceph on Kubernetes for internal platforms, automating cluster bring-up, OSD lifecycle on node churn, and version upgrades.</li><li>Built StorageClasses and CSI bindings so product teams could consume RBD volumes and CephFS shares as first-class Kubernetes PersistentVolumes.</li><li>Wrote runbooks and automation around the Rook CRDs for day-2 operations: capacity expansion, pool changes, and failure recovery.</li></ul>
+          </div>
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">OpenStack + Ceph integration</h4>
+            <ul><li>Integrated Ceph with OpenStack services — RBD as the backend for Cinder (block) and Glance (image), Swift-compatible object storage via RGW.</li><li>Worked across Nova, Cinder, Neutron, and Keystone to debug cross-component issues (volume attach races, auth token failures, network policy and QoS at the storage network layer).</li><li>Reviewed tenant isolation, rate-limiting, and quota enforcement for multi-tenant shared storage.</li></ul>
+          </div>
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Platform engineering — microservices and CI</h4>
+            <ul><li>Broke out services from a large monolithic test/CI system into independently deployable microservices with clear API boundaries; introduced service-level health checks and per-service deployment pipelines.</li></ul>
+          </div>
+          
+        
+      </div>
+      
+      <div class="cv-job">
+        <div class="cv-job-header">
+          <div>
+            <h3 class="cv-job-title">Production Engineer</h3>
+            <p class="cv-company">ANI Technologies (Ola) &mdash; Bangalore, India</p>
+          </div>
+          <span class="cv-period">January 2016 – October 2016</span>
+        </div>
+        
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">HAProxy log analytics pipeline</h4>
+            <ul><li>Built the HAProxy log pipeline using rsyslog, Kafka, Logstash, and Elasticsearch for real-time visibility into traffic patterns and error rates across the fleet.</li><li>Used the pipeline to identify slow upstreams and misbehaving clients that had previously been invisible.</li></ul>
+          </div>
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Microservice infrastructure</h4>
+            <ul><li>Contributed to the platform supporting the company&#39;s rapid user growth: service discovery, deploy tooling, and base images.</li></ul>
+          </div>
+          
+        
+      </div>
+      
+      <div class="cv-job">
+        <div class="cv-job-header">
+          <div>
+            <h3 class="cv-job-title">DevOps Engineer</h3>
+            <p class="cv-company">Knowlarity &mdash; Bangalore, India</p>
+          </div>
+          <span class="cv-period">April 2014 – December 2015</span>
+        </div>
+        
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Multi-datacenter VoIP telephony infrastructure</h4>
+            <ul><li>Designed and built the multi-datacenter VoIP telephony infrastructure powering the company&#39;s cloud telephony product across India and SEA.</li><li>Built the active-active datacenter layout with SIP trunk termination across sites, media server pools, and carrier-level redundancy so call traffic survived single-DC loss.</li><li>Owned the failover platform end-to-end: DNS, load balancer, Asterisk/FreeSWITCH media nodes, and DB replica cutover runbooks.</li></ul>
+          </div>
+          
+          <div class="cv-highlight">
+            <h4 class="cv-highlight-title">Hub-and-spoke network</h4>
+            <ul><li>Designed and rolled out a hub-and-spoke network connecting multiple datacenters, office sites, and carrier interconnects with redundant IPsec tunnels and dynamic routing.</li><li>Replaced an unstable full-mesh VPN setup; resolved persistent inter-site routing loops, asymmetric paths, and fragmentation issues that had been causing dropped calls and signaling failures.</li><li>Tuned OSPF/BGP route preferences and failover timers so spoke sites re-converged on the surviving hub within seconds of a link loss.</li></ul>
+          </div>
+          
+        
+      </div>
+      
+      <div class="cv-job">
+        <div class="cv-job-header">
+          <div>
+            <h3 class="cv-job-title">Assistant Systems Engineer / Trainee</h3>
+            <p class="cv-company">Tata Consultancy Services (TCS) &mdash; Kolkata, India</p>
+          </div>
+          <span class="cv-period">July 2013 – March 2014</span>
+        </div>
+        
+          <ul><li>Delivered infrastructure automation work including storage virtualization tasks for a client engagement.</li><li>Led a team of five during the Initial Learning Program.</li></ul>
+        
+      </div>
+      
+    </section>
+    
+
+    
+    
+    <section class="cv-section">
+      <h2>Technical Skills</h2>
+      <dl class="cv-skills">
+        
+        <div class="cv-skill-row">
+          <dt>Languages</dt>
+          <dd>Go, Python, Bash, C, Java</dd>
+        </div>
+        
+        <div class="cv-skill-row">
+          <dt>Kubernetes &amp; Containers</dt>
+          <dd>Kubernetes, Helm, container runtimes, CRDs / operators, microservices</dd>
+        </div>
+        
+        <div class="cv-skill-row">
+          <dt>Cloud &amp; IaaS</dt>
+          <dd>AWS (EC2, S3, Route53, RDS, CloudFront, CloudWatch, SES, SNS, IAM), GCP, VMware IaaS</dd>
+        </div>
+        
+        <div class="cv-skill-row">
+          <dt>Ceph &amp; Distributed Storage</dt>
+          <dd>Ceph RBD, RGW, CephFS; Rook on Kubernetes; CRUSH maps, placement groups, BlueStore OSDs, erasure coding, replication factors, pool and bucket design; cluster recovery, scrub / backfill tuning, RGW multi-site</dd>
+        </div>
+        
+        <div class="cv-skill-row">
+          <dt>OpenStack</dt>
+          <dd>Cinder (block), Swift (object), Nova (compute), Keystone, Neutron; Ceph-backed Cinder and Glance</dd>
+        </div>
+        
+        <div class="cv-skill-row">
+          <dt>Storage</dt>
+          <dd>VMware vSAN, vSphere storage, enterprise storage (IBM, Hitachi), NAS, S3 / object storage, block volumes, replication, failover</dd>
+        </div>
+        
+        <div class="cv-skill-row">
+          <dt>Data</dt>
+          <dd>MySQL, PostgreSQL, Kafka, Elasticsearch, data migration</dd>
+        </div>
+        
+        <div class="cv-skill-row">
+          <dt>Infra as Code / CI/CD</dt>
+          <dd>Terraform, Chef, Puppet, Jenkins, Git-based pipelines</dd>
+        </div>
+        
+        <div class="cv-skill-row">
+          <dt>Observability</dt>
+          <dd>OpenTSDB, Graylog, Fluentd, Logstash, rsyslog, cAdvisor, Nagios</dd>
+        </div>
+        
+        <div class="cv-skill-row">
+          <dt>OS / Networking</dt>
+          <dd>Linux (RHEL, Ubuntu), performance tuning, TCP/IP, VPN (hub-and-spoke), HAProxy, load balancing</dd>
+        </div>
+        
+        <div class="cv-skill-row">
+          <dt>Web Frameworks</dt>
+          <dd>Django, Flask</dd>
+        </div>
+        
+      </dl>
+    </section>
+    
+
+    
+    
+    <section class="cv-section">
+      <h2>Education</h2>
+      
+      <div class="cv-edu">
+        <strong>B.Tech, Computer Science and Engineering</strong>
+        <span class="cv-edu-inst">Kalyani Government Engineering College, India (2013)</span>
+      </div>
+      
+    </section>
+    
+
+  </article>
+</div>
+
+  </main>
+
+  <footer class="site-footer no-print">
+    <div class="footer-inner">
+      <span>Biswajit Pain &mdash; Systems Development Engineer &mdash; Berlin</span>
+    </div>
+  </footer>
+</body>
+</html>
