@@ -528,9 +528,15 @@ class CvDOCX:
 # ── Routes ────────────────────────────────────────────────────────────
 
 @app.route("/")
-def index():
+def portfolio():
     cv = load_cv()
-    return render_template("index.html", cv=cv)
+    return render_template("portfolio.html", cv=cv)
+
+
+@app.route("/resume")
+def resume_page():
+    cv = load_cv()
+    return render_template("resume.html", cv=cv)
 
 
 @app.route("/download/txt")

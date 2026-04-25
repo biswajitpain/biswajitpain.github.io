@@ -55,6 +55,7 @@ jobs:
           find _site -type f | sort
           echo "────────────────────────────────────────────"
           test -f _site/index.html
+          test -f _site/resume.html
           test -f _site/resume.pdf
           test -f _site/resume.txt
           test -f _site/.nojekyll

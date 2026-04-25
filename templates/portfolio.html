@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}{{ cv.personal.name }} — Portfolio{% endblock %}
+{% block description %}{{ cv.personal.name }}, {{ cv.personal.title }} based in {{ cv.personal.location }}.{% endblock %}
+
+{% block content %}
+
+{# ── Hero ── #}
+<section class="pf-hero no-print">
+  <div class="pf-hero-inner">
+    <h1 class="pf-name">{{ cv.personal.name }}</h1>
+    {% if cv.personal.title %}
+    <p class="pf-role">{{ cv.personal.title }}</p>
+    {% endif %}
+    {% if cv.personal.location %}
+    <p class="pf-location">{{ cv.personal.location }}</p>
+    {% endif %}
+
+    <div class="pf-links">
+      {% if cv.personal.email %}
+      <a href="mailto:{{ cv.personal.email }}" class="pf-link">{{ cv.personal.email }}</a>
+      {% endif %}
+      {% if cv.personal.github %}
+      <a href="https://github.com/{{ cv.personal.github }}" target="_blank" rel="noopener" class="pf-link">GitHub</a>
+      {% endif %}
+      {% if cv.personal.linkedin %}
+      <a href="https://linkedin.com/in/{{ cv.personal.linkedin }}" target="_blank" rel="noopener" class="pf-link">LinkedIn</a>
+      {% endif %}
+    </div>
+
+    <div class="pf-cta">
+      <a href="{{ './resume.html' if static_build else url_for('resume_page') }}" class="btn btn-white">View Resume</a>
+      <a href="{{ './resume.pdf' if static_build else url_for('download_pdf') }}" class="btn btn-outline-white">Download PDF</a>
+    </div>
+  </div>
+</section>
+
+{# ── About ── #}
+{% if cv.profile %}
+<section class="pf-section">
+  <div class="pf-section-inner">
+    <h2 class="pf-section-title">About</h2>
+    <p class="pf-profile">{{ cv.profile }}</p>
+  </div>
+</section>
+{% endif %}
+
+{# ── Experience highlights (top 4 roles) ── #}
+{% if cv.experience %}
+<section class="pf-section pf-section-alt">
+  <div class="pf-section-inner">
+    <h2 class="pf-section-title">Experience</h2>
+    <div class="pf-jobs">
+      {% for job in cv.experience[:4] %}
+      <div class="pf-job">
+        <div class="pf-job-meta">
+          <div>
+            <h3 class="pf-job-title">{{ job.title }}</h3>
+            <p class="pf-job-company">
+              {{ job.company }}{% if job.location %} &mdash; {{ job.location }}{% endif %}
+            </p>
+          </div>
+          <span class="pf-job-period">{{ job.period }}</span>
+        </div>
+        {# Pick the first available bullet point as the highlight #}
+        {% if job.highlights and job.highlights[0].points %}
+          <p class="pf-job-highlight">{{ job.highlights[0].points[0] }}</p>
+        {% elif job.points %}
+          <p class="pf-job-highlight">{{ job.points[0] }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% if cv.experience | length > 4 %}
+    <p class="pf-more">
+      <a href="{{ './resume.html' if static_build else url_for('resume_page') }}">
+        + {{ cv.experience | length - 4 }} more roles in full resume &rarr;
+      </a>
+    </p>
+    {% endif %}
+  </div>
+</section>
+{% endif %}
+
+{# ── Skills ── #}
+{% if cv.skills %}
+<section class="pf-section">
+  <div class="pf-section-inner">
+    <h2 class="pf-section-title">Technical Skills</h2>
+    <div class="pf-skills">
+      {% for s in cv.skills %}
+      <div class="pf-skill-row">
+        <span class="pf-skill-cat">{{ s.category }}</span>
+        <span class="pf-skill-items">{{ s['items'] }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# ── Footer CTA ── #}
+<section class="pf-footer-cta no-print">
+  <a href="{{ './resume.html' if static_build else url_for('resume_page') }}" class="btn btn-primary btn-lg">
+    View Full Resume &rarr;
+  </a>
+</section>
+
+{% endblock %}

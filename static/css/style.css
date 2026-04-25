@@ -421,3 +421,131 @@ main { padding: 2rem 1.5rem 4rem; }
   .nav-links a:not(.btn) { display: none; }
   .resume-actions { flex-direction: column; }
 }
+
+/* ============================================================
+   Portfolio page
+   ============================================================ */
+
+/* Hero */
+.pf-hero {
+  background: linear-gradient(140deg, #1a2d4a 0%, #2563eb 100%);
+  color: #fff;
+  padding: 5rem 1.5rem 4.5rem;
+  text-align: center;
+}
+.pf-hero-inner { max-width: 720px; margin: 0 auto; }
+.pf-name {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: .375rem;
+  letter-spacing: -.02em;
+}
+.pf-role   { font-size: 1.2rem; opacity: .88; margin: 0 0 .25rem; }
+.pf-location { font-size: .875rem; opacity: .65; margin: 0 0 1.75rem; }
+
+.pf-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: .375rem 1.25rem;
+  margin-bottom: 1.75rem;
+}
+.pf-link {
+  color: rgba(255,255,255,.82);
+  text-decoration: none;
+  font-size: .875rem;
+  border-bottom: 1px solid rgba(255,255,255,.3);
+  padding-bottom: 1px;
+  transition: color .15s, border-color .15s;
+}
+.pf-link:hover { color: #fff; border-color: rgba(255,255,255,.75); text-decoration: none; }
+
+.pf-cta { display: flex; justify-content: center; gap: .75rem; flex-wrap: wrap; }
+
+.btn-white {
+  background: #fff;
+  color: var(--accent);
+  border-color: #fff;
+}
+.btn-white:hover { background: #eef3ff; color: var(--accent-h); border-color: #eef3ff; text-decoration: none; }
+
+.btn-outline-white {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255,255,255,.55);
+}
+.btn-outline-white:hover { background: rgba(255,255,255,.12); color: #fff; text-decoration: none; }
+
+.btn-lg { padding: .75rem 1.5rem; font-size: 1rem; }
+
+/* Sections */
+.pf-section       { padding: 3.5rem 1.5rem; background: var(--surface); }
+.pf-section-alt   { background: var(--bg); }
+.pf-section-inner { max-width: 860px; margin: 0 auto; }
+.pf-section-title {
+  font-size: .8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  padding-bottom: .4rem;
+  border-bottom: 2px solid var(--border);
+}
+
+/* Profile text */
+.pf-profile { font-size: 1rem; line-height: 1.75; color: var(--text); margin: 0; }
+
+/* Experience cards */
+.pf-jobs { display: flex; flex-direction: column; gap: 1rem; }
+.pf-job {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.125rem 1.375rem;
+  box-shadow: var(--shadow);
+}
+.pf-job-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: .3rem;
+}
+.pf-job-title   { font-size: .9375rem; font-weight: 700; margin: 0; }
+.pf-job-company { font-size: .8375rem; color: var(--muted); margin: .1rem 0 .5rem; font-style: italic; }
+.pf-job-period  { font-size: .8125rem; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+.pf-job-highlight { font-size: .8875rem; color: var(--text); margin: 0; line-height: 1.6; }
+
+.pf-more { margin-top: 1rem; font-size: .875rem; text-align: center; }
+.pf-more a { color: var(--accent); }
+
+/* Skills grid */
+.pf-skills { display: flex; flex-direction: column; }
+.pf-skill-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: .5rem;
+  padding: .5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: .875rem;
+}
+.pf-skill-row:last-child { border-bottom: none; }
+.pf-skill-cat   { font-weight: 600; color: var(--accent); }
+.pf-skill-items { color: var(--muted); }
+
+/* Footer CTA */
+.pf-footer-cta {
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .pf-name { font-size: 2.25rem; }
+  .pf-job-meta { flex-direction: column; gap: .2rem; }
+  .pf-skill-row { grid-template-columns: 1fr; }
+}

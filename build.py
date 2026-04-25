@@ -46,8 +46,9 @@ def build():
             size = f"{len(r.data):,} bytes"
             print(f"  {out:<24} {size}")
 
-        # HTML
-        fetch("/",             "index.html", mode="wb")
+        # Pages
+        fetch("/",        "index.html",  mode="wb")   # portfolio (GitHub Pages entry point)
+        fetch("/resume",  "resume.html", mode="wb")   # full CV page
         # Downloads (DOCX is local-dev only — not included in static build)
         fetch("/download/txt", "resume.txt", mode="wb")
         fetch("/download/pdf", "resume.pdf", mode="wb")

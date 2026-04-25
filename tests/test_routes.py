@@ -4,7 +4,7 @@ import os
 from unittest.mock import MagicMock, patch
 
 
-class TestIndex:
+class TestPortfolio:
     def test_status_200(self, client):
         assert client.get("/").status_code == 200
 
@@ -16,6 +16,23 @@ class TestIndex:
 
     def test_name_in_body(self, client):
         assert b"Biswajit Pain" in client.get("/").data
+
+    def test_resume_link_present(self, client):
+        assert b"/resume" in client.get("/").data
+
+
+class TestResumePage:
+    def test_status_200(self, client):
+        assert client.get("/resume").status_code == 200
+
+    def test_content_type_html(self, client):
+        assert "text/html" in client.get("/resume").content_type
+
+    def test_non_empty(self, client):
+        assert len(client.get("/resume").data) > 0
+
+    def test_name_in_body(self, client):
+        assert b"Biswajit Pain" in client.get("/resume").data
 
 
 class TestDownloadTxt:

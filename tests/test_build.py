@@ -20,6 +20,9 @@ class TestBuild:
     def test_index_html_created(self, isolated_build_dir):
         assert (isolated_build_dir / "index.html").exists()
 
+    def test_resume_html_created(self, isolated_build_dir):
+        assert (isolated_build_dir / "resume.html").exists()
+
     def test_resume_pdf_created(self, isolated_build_dir):
         assert (isolated_build_dir / "resume.pdf").exists()
 

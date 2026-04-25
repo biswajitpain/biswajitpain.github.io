@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Biswajit Pain{% endblock %}</title>
   <meta name="author" content="Biswajit Pain">
-  <meta name="description" content="{% block description %}Systems Development Engineer — Resume{% endblock %}">
+  <meta name="description" content="{% block description %}Systems Development Engineer — Portfolio{% endblock %}">
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" media="screen">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/print.css') }}" media="print">
@@ -14,13 +14,16 @@
 <body>
   <nav class="site-nav no-print">
     <div class="nav-inner">
-      <a class="nav-brand" href="{{ url_for('index') }}">Biswajit Pain</a>
+      <a class="nav-brand" href="{{ './' if static_build else url_for('portfolio') }}">Biswajit Pain</a>
       <div class="nav-links">
-        <a href="{{ './' if static_build else url_for('index') }}">Resume</a>
+        <a href="{{ './' if static_build else url_for('portfolio') }}"
+           {% if request.path == '/' %}class="active"{% endif %}>Portfolio</a>
+        <a href="{{ './resume.html' if static_build else url_for('resume_page') }}"
+           {% if request.path == '/resume' %}class="active"{% endif %}>Resume</a>
         {% if not static_build %}
-        <a href="{{ url_for('generate') }}" {% if request.path == '/generate' %}class="active"{% endif %}>Generate with AI</a>
+        <a href="{{ url_for('generate') }}"
+           {% if request.path == '/generate' %}class="active"{% endif %}>Generate with AI</a>
         {% endif %}
-        <a href="{{ './resume.txt'  if static_build else url_for('download_txt') }}">Plain Text</a>
         <a href="{{ './resume.pdf' if static_build else url_for('download_pdf') }}" class="btn btn-ghost btn-sm">PDF</a>
         {% if not static_build %}
         <a href="{{ url_for('download_docx') }}" class="btn btn-outline btn-sm">Download DOCX</a>
