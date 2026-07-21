@@ -24,7 +24,7 @@ jiter==0.14.0
 markdown2==2.5.5
 MarkupSafe==3.0.3
 packaging==26.1
-pillow==12.2.0
+pillow==12.3.0
 pycparser==3.0
 pydantic==2.13.3
 pydantic_core==2.46.3
